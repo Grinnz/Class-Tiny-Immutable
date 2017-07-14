@@ -6,6 +6,10 @@ use Class::Tiny::Immutable 'foo', {bar => 42, baz => undef};
 
 sub BUILD { shift->{baz}++ }
 
+package MyClass::Child;
+our @ISA = 'MyClass';
+use Class::Tiny 'child_attr';
+
 package main;
 
 use Test::More;
@@ -20,5 +24,10 @@ is $obj->bar, 42, 'bar has right value';
 ok !eval { $obj->bar(21); 1 }, 'setter for lazy attribute dies';
 is $obj->baz, 3, 'baz was changed by BUILD';
 ok !eval { $obj->baz(0); 1 }, 'setter for readonly attribute dies';
+
+my @required = Class::Tiny::Immutable->get_all_required_attributes_for('MyClass');
+is_deeply [sort @required], [qw(baz foo)], 'list required attributes';
+@required = Class::Tiny::Immutable->get_all_required_attributes_for('MyClass::Child');
+is_deeply [sort @required], [qw(baz foo)], 'same required attributes';
 
 done_testing;

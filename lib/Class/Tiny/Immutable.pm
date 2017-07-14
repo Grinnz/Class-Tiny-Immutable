@@ -9,10 +9,19 @@ our @ISA = 'Class::Tiny';
 
 our $VERSION = '0.001';
 
+my %REQUIRED_ATTRIBUTES;
+
 sub prepare_class {
   my ( $class, $pkg ) = @_;
   no strict 'refs';
   @{"${pkg}::ISA"} = "Class::Tiny::Immutable::Object" unless @{"${pkg}::ISA"};
+}
+
+sub create_attributes {
+  my ( $class, $pkg, @spec ) = @_;
+  $class->SUPER::create_attributes( $pkg, @spec );
+  my %defaults = map { ref $_ eq 'HASH' ? %$_ : ( $_ => undef ) } @spec;
+  $REQUIRED_ATTRIBUTES{$pkg}{$_} = 1 for grep { !defined $defaults{$_} } keys %defaults;
 }
 
 sub __gen_sub_body {
@@ -49,6 +58,14 @@ HERE
   }
 }
 
+sub get_all_required_attributes_for {
+  my ( $class, $pkg ) = @_;
+  my %attr =
+    map { $_ => undef }
+    map { keys %{ $REQUIRED_ATTRIBUTES{$_} || {} } } @{ mro::get_linear_isa($pkg) };
+  return keys %attr;
+}
+
 package Class::Tiny::Immutable::Object;
 
 our @ISA = 'Class::Tiny::Object';
@@ -57,12 +74,8 @@ our $VERSION = '0.001';
 
 sub BUILD {
   my ( $self, $args ) = @_;
-  my $attrs = Class::Tiny::Immutable->get_all_attribute_defaults_for( ref $self );
-  my @missing;
-  foreach my $name ( keys %$attrs ) {
-    # Any attribute without a defined default is required
-    push @missing, $name unless defined $attrs->{$name} or exists $args->{$name};
-  }
+  my @missing = grep { !exists $args->{$_} }
+    Class::Tiny::Immutable->get_all_required_attributes_for( ref $self );
   Carp::croak( 'Missing required attributes: ' . join( ', ', sort @missing ) ) if @missing;
 }
 
@@ -114,6 +127,18 @@ L<Class::Tiny::Immutable> is a wrapper around L<Class::Tiny> which makes the
 generated attributes read-only, and required to be set in the object
 constructor if they do not have a lazy default defined. In other words,
 attributes are either "lazy" or "required".
+
+=head1 METHODS
+
+In addition to methods inherited from L<Class::Tiny>, Class::Tiny::Immutable
+defines the following additional introspection method:
+
+=head2 get_all_required_attributes_for
+
+  my @required = Class::Tiny::Immutable->get_all_required_attributes_for($class);
+
+Returns an unsorted list of required attributes known to Class::Tiny::Immutable
+for a class and its superclasses.
 
 =head1 BUGS
 
