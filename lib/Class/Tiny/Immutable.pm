@@ -60,6 +60,8 @@ HERE
 
 sub get_all_required_attributes_for {
   my ( $class, $pkg ) = @_;
+  # attributes are stored per package, so we need to walk the mro ourselves
+  # rely on Class::Tiny to have loaded the appropriate mro
   my %attr =
     map { $_ => undef }
     map { keys %{ $REQUIRED_ATTRIBUTES{$_} || {} } } @{ mro::get_linear_isa($pkg) };
