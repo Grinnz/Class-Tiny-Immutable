@@ -193,7 +193,7 @@
                      ":ExecFiles",
                      ":InstallModules"
                   ],
-                  "global" : 0,
+                  "global" : 1,
                   "skip_version_provider" : 0
                }
             },
@@ -286,7 +286,7 @@
                      ":ExecFiles",
                      ":InstallModules"
                   ],
-                  "global" : 0,
+                  "global" : 1,
                   "munge_makefile_pl" : 0
                }
             },
