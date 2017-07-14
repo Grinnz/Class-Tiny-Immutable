@@ -47,6 +47,18 @@ generated attributes read-only, and required to be set in the object
 constructor if they do not have a lazy default defined. In other words,
 attributes are either "lazy" or "required".
 
+=head1 METHODS
+
+In addition to methods inherited from L<Class::Tiny>, Class::Tiny::Immutable
+defines the following additional introspection method:
+
+=head2 get_all_required_attributes_for
+
+  my @required = Class::Tiny::Immutable->get_all_required_attributes_for($class);
+
+Returns an unsorted list of required attributes known to Class::Tiny::Immutable
+for a class and its superclasses.
+
 =head1 BUGS
 
 Report any issues on the public bugtracker.
