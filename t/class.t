@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package MyClass;
-use Class::Tiny::Lazy 'foo', {bar => 42, baz => undef};
+use Class::Tiny::Immutable 'foo', {bar => 42, baz => undef};
 
 sub BUILD { shift->{baz}++ }
 

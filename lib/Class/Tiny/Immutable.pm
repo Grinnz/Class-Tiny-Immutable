@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package Class::Tiny::Lazy;
+package Class::Tiny::Immutable;
 
 use Carp ();
 use Class::Tiny ();
@@ -12,7 +12,7 @@ our $VERSION = '0.001';
 sub prepare_class {
   my ( $class, $pkg ) = @_;
   no strict 'refs';
-  @{"${pkg}::ISA"} = "Class::Tiny::Lazy::Object" unless @{"${pkg}::ISA"};
+  @{"${pkg}::ISA"} = "Class::Tiny::Immutable::Object" unless @{"${pkg}::ISA"};
 }
 
 sub __gen_sub_body {
@@ -49,7 +49,7 @@ HERE
   }
 }
 
-package Class::Tiny::Lazy::Object;
+package Class::Tiny::Immutable::Object;
 
 our @ISA = 'Class::Tiny::Object';
 
@@ -57,7 +57,7 @@ our $VERSION = '0.001';
 
 sub BUILD {
   my ( $self, $args ) = @_;
-  my $attrs = Class::Tiny::Lazy->get_all_attribute_defaults_for( ref $self );
+  my $attrs = Class::Tiny::Immutable->get_all_attribute_defaults_for( ref $self );
   my @missing;
   foreach my $name ( keys %$attrs ) {
     # Any attribute without a defined default is required
@@ -70,7 +70,8 @@ sub BUILD {
 
 =head1 NAME
 
-Class::Tiny::Lazy - Minimalist class construction, with lazy attributes
+Class::Tiny::Immutable - Minimalist class construction, with read-only
+attributes
 
 =head1 SYNOPSIS
 
@@ -78,7 +79,7 @@ In I<Person.pm>:
 
   package Person;
   
-  use Class::Tiny::Lazy qw( name );
+  use Class::Tiny::Immutable qw( name );
   
   1;
 
@@ -87,7 +88,7 @@ In I<Employee.pm>:
   package Employee;
   use parent 'Person';
   
-  use Class::Tiny::Lazy qw( ssn ), {
+  use Class::Tiny::Immutable qw( ssn ), {
     timestamp => sub { time }   # lazy attribute with default
   };
   
@@ -109,7 +110,7 @@ In I<example.pl>:
 
 =head1 DESCRIPTION
 
-L<Class::Tiny::Lazy> is a wrapper around L<Class::Tiny> which makes the
+L<Class::Tiny::Immutable> is a wrapper around L<Class::Tiny> which makes the
 generated attributes read-only, and required to be set in the object
 constructor if they do not have a lazy default defined. In other words,
 attributes are either "lazy" or "required".

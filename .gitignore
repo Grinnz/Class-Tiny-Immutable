@@ -16,4 +16,4 @@ nytprof.out
 *.o
 *.bs
 /_eumm/
-/Class-Tiny-Lazy-*
+/Class-Tiny-Immutable-*

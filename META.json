@@ -1,5 +1,5 @@
 {
-   "abstract" : "Minimalist class construction, with lazy attributes",
+   "abstract" : "Minimalist class construction, with read-only attributes",
    "author" : [
       "Dan Book <dbook@cpan.org>"
    ],
@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : 2
    },
-   "name" : "Class-Tiny-Lazy",
+   "name" : "Class-Tiny-Immutable",
    "no_index" : {
       "directory" : [
          "eg",
@@ -53,25 +53,25 @@
       }
    },
    "provides" : {
-      "Class::Tiny::Lazy" : {
-         "file" : "lib/Class/Tiny/Lazy.pm",
+      "Class::Tiny::Immutable" : {
+         "file" : "lib/Class/Tiny/Immutable.pm",
          "version" : "0.001"
       },
-      "Class::Tiny::Lazy::Object" : {
-         "file" : "lib/Class/Tiny/Lazy.pm",
+      "Class::Tiny::Immutable::Object" : {
+         "file" : "lib/Class/Tiny/Immutable.pm",
          "version" : "0.001"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/Grinnz/Class-Tiny-Lazy/issues"
+         "web" : "https://github.com/Grinnz/Class-Tiny-Immutable/issues"
       },
-      "homepage" : "https://github.com/Grinnz/Class-Tiny-Lazy",
+      "homepage" : "https://github.com/Grinnz/Class-Tiny-Immutable",
       "repository" : {
          "type" : "git",
-         "url" : "https://github.com/Grinnz/Class-Tiny-Lazy.git",
-         "web" : "https://github.com/Grinnz/Class-Tiny-Lazy"
+         "url" : "https://github.com/Grinnz/Class-Tiny-Immutable.git",
+         "web" : "https://github.com/Grinnz/Class-Tiny-Immutable"
       }
    },
    "version" : "0.001",

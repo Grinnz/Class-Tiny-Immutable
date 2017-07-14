@@ -2,7 +2,8 @@
 
 =head1 NAME
 
-Class::Tiny::Lazy - Minimalist class construction, with lazy attributes
+Class::Tiny::Immutable - Minimalist class construction, with read-only
+attributes
 
 =head1 SYNOPSIS
 
@@ -10,7 +11,7 @@ In I<Person.pm>:
 
   package Person;
   
-  use Class::Tiny::Lazy qw( name );
+  use Class::Tiny::Immutable qw( name );
   
   1;
 
@@ -19,7 +20,7 @@ In I<Employee.pm>:
   package Employee;
   use parent 'Person';
   
-  use Class::Tiny::Lazy qw( ssn ), {
+  use Class::Tiny::Immutable qw( ssn ), {
     timestamp => sub { time }   # lazy attribute with default
   };
   
@@ -41,7 +42,7 @@ In I<example.pl>:
 
 =head1 DESCRIPTION
 
-L<Class::Tiny::Lazy> is a wrapper around L<Class::Tiny> which makes the
+L<Class::Tiny::Immutable> is a wrapper around L<Class::Tiny> which makes the
 generated attributes read-only, and required to be set in the object
 constructor if they do not have a lazy default defined. In other words,
 attributes are either "lazy" or "required".

@@ -7,15 +7,15 @@ use 5.006;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Minimalist class construction, with lazy attributes",
+  "ABSTRACT" => "Minimalist class construction, with read-only attributes",
   "AUTHOR" => "Dan Book <dbook\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
   },
-  "DISTNAME" => "Class-Tiny-Lazy",
+  "DISTNAME" => "Class-Tiny-Immutable",
   "LICENSE" => "artistic_2",
   "MIN_PERL_VERSION" => "5.006",
-  "NAME" => "Class::Tiny::Lazy",
+  "NAME" => "Class::Tiny::Immutable",
   "PREREQ_PM" => {
     "Carp" => 0,
     "Class::Tiny" => "1.003"
