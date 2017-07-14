@@ -17,6 +17,7 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.006",
   "NAME" => "Class::Tiny::Lazy",
   "PREREQ_PM" => {
+    "Carp" => 0,
     "Class::Tiny" => "1.003"
   },
   "TEST_REQUIRES" => {
@@ -32,6 +33,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "Carp" => 0,
   "Class::Tiny" => "1.003",
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
