@@ -7,7 +7,7 @@ use Carp ();
 use Class::Tiny ();
 our @ISA = 'Class::Tiny';
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 my %REQUIRED_ATTRIBUTES;
 
@@ -71,7 +71,7 @@ package Class::Tiny::Immutable::Object;
 
 our @ISA = 'Class::Tiny::Object';
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 sub BUILD {
   my ( $self, $args ) = @_;
