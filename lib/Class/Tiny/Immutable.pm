@@ -20,8 +20,7 @@ sub prepare_class {
 sub create_attributes {
   my ( $class, $pkg, @spec ) = @_;
   $class->SUPER::create_attributes( $pkg, @spec );
-  my %defaults = map { ref $_ eq 'HASH' ? %$_ : ( $_ => undef ) } @spec;
-  $REQUIRED_ATTRIBUTES{$pkg}{$_} = 1 for grep { !defined $defaults{$_} } keys %defaults;
+  $REQUIRED_ATTRIBUTES{$pkg}{$_} = 1 for grep { ref $_ ne 'HASH' } @spec;
 }
 
 sub __gen_sub_body {
